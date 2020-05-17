@@ -1,13 +1,13 @@
-package com.example.demoapp;
+package com.spring.restful.restfulwebproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoappApplication {
+public class RestfulwebprojectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoappApplication.class, args);
+		SpringApplication.run(RestfulwebprojectApplication.class, args);
 	}
 
 }

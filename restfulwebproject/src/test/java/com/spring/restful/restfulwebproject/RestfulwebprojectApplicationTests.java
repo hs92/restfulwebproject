@@ -1,10 +1,10 @@
-package com.example.demoapp;
+package com.spring.restful.restfulwebproject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoappApplicationTests {
+class RestfulwebprojectApplicationTests {
 
 	@Test
 	void contextLoads() {
