@@ -1,0 +1,40 @@
+package com.spring.restful.restfulwebproject.controller;
+
+import java.util.List;
+import javax.annotation.Resource;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.spring.restful.restfulwebproject.domain.User;
+import com.spring.restful.restfulwebproject.exception.UserNotFoundException;
+import com.spring.restful.restfulwebproject.service.UserService;
+
+@RestController
+@RequestMapping("/api/user")
+public class UserController {
+
+	@Resource
+	private UserService userService;
+	
+	@GetMapping("/getUsers")
+	public List<User> retreiveAllUsers() {
+		return userService.findAll();
+	}
+	
+	@GetMapping("/getUsers/{id}")
+	public User getUser(@PathVariable int id) throws UserNotFoundException {
+		User user = userService.findOne(id);
+		if (user == null) {
+			throw new UserNotFoundException("id - " + id);
+		}
+		return user;
+	}
+	
+	@PostMapping("/addUser")
+	public List<User> createUser(@RequestBody User user) {
+		return userService.save(user);
+	}
+}
