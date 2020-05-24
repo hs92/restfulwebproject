@@ -2,6 +2,11 @@ package com.spring.restful.restfulwebproject.controller;
 
 import java.util.List;
 import javax.annotation.Resource;
+
+import static org.springframework.hateoas.server.mvc.ControllerLinkBuilder.*;
+
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.ControllerLinkBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +17,7 @@ import com.spring.restful.restfulwebproject.domain.User;
 import com.spring.restful.restfulwebproject.exception.UserNotFoundException;
 import com.spring.restful.restfulwebproject.service.UserService;
 
+@SuppressWarnings("deprecation")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -25,12 +31,17 @@ public class UserController {
 	}
 	
 	@GetMapping("/getUsers/{id}")
-	public User getUser(@PathVariable int id) throws UserNotFoundException {
+	public EntityModel<User> getUser(@PathVariable int id) throws UserNotFoundException {
 		User user = userService.findOne(id);
 		if (user == null) {
 			throw new UserNotFoundException("id - " + id);
 		}
-		return user;
+		EntityModel<User> resouce = new EntityModel<User>(user);
+		
+		ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retreiveAllUsers());
+		
+		resouce.add(linkTo.withRel("all-users"));
+		return resouce;
 	}
 	
 	@PostMapping("/addUser")
