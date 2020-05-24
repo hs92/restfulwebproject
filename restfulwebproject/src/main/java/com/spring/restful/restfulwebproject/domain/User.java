@@ -2,6 +2,8 @@ package com.spring.restful.restfulwebproject.domain;
 
 import java.util.Date;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(description = "Description about user.")
 public class User {
 	
 
@@ -20,6 +23,7 @@ public class User {
 	
 	private String name;
 	
+	@ApiModelProperty(notes = "Birth dates can be in past only!")
 	private Date birthDate;
 
 	public User(Integer id, String name, Date birthDate) {
